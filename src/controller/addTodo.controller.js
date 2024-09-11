@@ -5,9 +5,10 @@ async function addTodo(req,res){
         return res.json("something went wrong may be your todo is empty please complete these todo ")
     }else{
         todo.create({
-            todo:body.todos
+            todo:body.todos,
+            createdBy:req.user._id
         })
-        return res.redirect("/")
+        return res.redirect("/api/todo")
     }
 }
 module.exports=addTodo

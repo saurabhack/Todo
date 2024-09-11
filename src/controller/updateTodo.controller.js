@@ -4,6 +4,6 @@ async function updateTodo(req,res){
     await todo.findByIdAndUpdate(req.params.id,{
         todo:body.todos
     })
-    res.redirect('/')
+    res.redirect('/api/todo')
 }
 module.exports=updateTodo
