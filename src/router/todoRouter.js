@@ -5,7 +5,19 @@ const addTodo=require("../controller/addTodo.controller.js")
 const deleteTodo = require("../controller/deleteTodo.controller.js")
 const updateTodo = require("../controller/updateTodo.controller.js")
 const todo = require("../models/todo.models.js")
-router.get('/todo',async (req,res)=>{
+const { restrictTo } = require("../middleware/auth.js")
+
+router.get('/admin',restrictTo(['admin']), async (req,res)=>{
+    if(!req.user){
+        res.redirect('/login')
+    }
+    const allTodos=await todo.find({})
+    console.log(allTodos)
+    return res.render('home',{
+        todos:allTodos
+    })
+})
+router.get('/todo',restrictTo(['normal']),async (req,res)=>{
     if(!req.user){
         return res.redirect("/login")
     }

@@ -11,7 +11,7 @@ async function loginUser(req,res){
         })
     }else{
         const token=setUser(user)
-        res.cookie('uid',token)
+        res.cookie('token',token)
         return res.redirect('/api/todo')
     }
     
